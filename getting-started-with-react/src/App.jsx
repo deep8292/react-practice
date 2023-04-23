@@ -3,16 +3,21 @@ import './App.css'
 
 function App() {
   const [error, setError] = useState('');
+  const [names, setNames] = useState([]);
   const firstNameRef = useRef();
   const lastNameRef = useRef();
 
-
-
   const didClickSubmit = () => {
     if (firstNameRef.current.value != '' && lastNameRef.current.value != '') {
-      console.log('Did Click');
+      setNames([...names, `${firstNameRef.current.value} ${lastNameRef.current.value}`])
     } else {
       setError('Please enter first name and last name');
+    }
+  }
+
+  const didClickCancel = () => {
+    if (names.length > 0) {
+      setNames([]);
     }
   }
 
@@ -35,10 +40,15 @@ function App() {
       <input id="lastNameField" placeholder='Last Name' ref={lastNameRef} onChange={lastNameChanged}></input>
     </div>
     <button onClick={didClickSubmit}>Submit</button>
+    <button onClick={didClickCancel}>Clear</button>
     <div>
      {error.length > 0 ? <label>{error}</label> : <></>}
     </div>
-    <></>
+    <div>
+      {names.map((name, idx) => {
+        return (<li key={idx}>{name}</li>)
+      })}
+    </div>
     </>
   )
 }
