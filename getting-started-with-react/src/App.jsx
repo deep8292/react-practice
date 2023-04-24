@@ -15,11 +15,6 @@ function App() {
     }
   }
 
-  const didClickCancel = () => {
-    if (names.length > 0) {
-      setNames();
-    }
-  }
 
   const firstNameChanged = () => {
     if (error != '') {
@@ -41,12 +36,11 @@ function App() {
 
   return (
     <>
-    <div>
+    <div className='row'>
       <input id="firstNameField" placeholder='First Name' ref={firstNameRef} onChange={firstNameChanged}></input>
       <input id="lastNameField" placeholder='Last Name' ref={lastNameRef} onChange={lastNameChanged}></input>
     </div>
     <button onClick={didClickSubmit}>Submit</button>
-    {/* <button onClick={didClickCancel}>Clear</button> */}
     <div>
      {error.length > 0 ? <label>{error}</label> : <></>}
     </div>
