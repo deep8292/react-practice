@@ -17,7 +17,7 @@ function App() {
 
   const didClickCancel = () => {
     if (names.length > 0) {
-      setNames([]);
+      setNames();
     }
   }
 
@@ -33,6 +33,12 @@ function App() {
     }
   }
 
+  const removeEntry = (idx) => {
+    setNames(oldNames => {
+      return oldNames.filter((_, index) => index !== idx)
+    })
+  }
+
   return (
     <>
     <div>
@@ -40,13 +46,18 @@ function App() {
       <input id="lastNameField" placeholder='Last Name' ref={lastNameRef} onChange={lastNameChanged}></input>
     </div>
     <button onClick={didClickSubmit}>Submit</button>
-    <button onClick={didClickCancel}>Clear</button>
+    {/* <button onClick={didClickCancel}>Clear</button> */}
     <div>
      {error.length > 0 ? <label>{error}</label> : <></>}
     </div>
     <div>
       {names.map((name, idx) => {
-        return (<li key={idx}>{name}</li>)
+        return (
+          <li key={idx}>
+            <span>{name}  </span>
+            <button onClick={() => removeEntry(idx)}>Delete</button>
+          </li>
+        )
       })}
     </div>
     </>
